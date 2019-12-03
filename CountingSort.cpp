@@ -50,8 +50,25 @@ int* countingSort(int *arr,int size) {
 		*/
 	}
 	display(count,max+1);
-
+	//bu kısımdan sonra dizideki bütün sayılara ve adetlerine count dizisinden
 	int *sorted = new int[size];
+
+	for (int i = 1; i < max+1; i++)
+	{
+		count[i] += count[i - 1];
+	}
+	for (int i = 0; i < size; i++)
+	{
+		int a = arr[i];
+		int aa = count[arr[i]+fark];
+		sorted[count[arr[i]+fark]-1] = arr[i];
+		count[arr[i]+fark]--;
+	}
+
+
+	return sorted;
+
+	/*
 	for (int i = 0; i < size;)
 	{
 		for (int j = 0; j < max+1; j++)
@@ -60,22 +77,23 @@ int* countingSort(int *arr,int size) {
 			{
 				sorted[i] = j-fark;
 				i++;
-				/*örn->> j=0 düşünülürse
-					-2 değerini tekrar elde edebilmek için 0-fark = 0-2 = -2 sonucunu elde ederiz 
-				*/
+				// örn->> j=0 düşünülürse
+				//	-2 değerini tekrar elde edebilmek için 0-fark = 0-2 = -2 sonucunu elde ederiz 
+				
 			}
 		}
 	}
-	return sorted;
+	*/
+	
 }
 
 int main() {
 	srand(time(NULL));
-	const int boyut= 10;
+	const int boyut= 5;
 	int* dizi = new int[boyut];
 	for (int i = 0; i < boyut; i++)
 	{
-		dizi[i] = (rand() % 20)-10;
+		dizi[i] = (rand() % 6)-3;
 	}
 	display(dizi, boyut);
 	dizi = countingSort(dizi,boyut);
